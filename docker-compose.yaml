@@ -1,0 +1,34 @@
+services:
+
+  vault:
+    image: hashicorp/vault:1.18.3
+    restart: always
+    command: [ 'vault', 'server', '-dev', '-dev-listen-address=0.0.0.0:8200']
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "root-token"
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
+
+  database:
+    build: ./database
+    image: database
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.3
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "payments"
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
