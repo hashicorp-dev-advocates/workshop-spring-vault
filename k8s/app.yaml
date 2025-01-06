@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: payments
+
 ---
 apiVersion: v1
 kind: Service
@@ -14,6 +15,7 @@ spec:
     - protocol: TCP
       port: 8081
       targetPort: 8080
+
 ---
 apiVersion: v1
 data:
@@ -22,7 +24,7 @@ data:
     
     spring.main.allow-bean-definition-overriding=true
     
-    spring.cloud.vault.uri=http://vault.default.svc.cluster.local:8200
+    spring.cloud.vault.uri=http://10.5.0.2:8200
     spring.cloud.vault.fail-fast=true
     spring.cloud.vault.authentication: KUBERNETES
     spring.cloud.vault.kubernetes.role: payments
@@ -44,16 +46,16 @@ data:
     spring.cloud.vault.config.lifecycle.min-renewal=30s
     spring.cloud.vault.config.lifecycle.expiry-threshold=10s
     
-    spring.datasource.url=jdbc:postgresql:///10.5.0.3:5432/payments
+    spring.datasource.url=jdbc:postgresql://10.5.0.3:5432/payments
 kind: ConfigMap
 metadata:
   name: payments-config
   namespace: default
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: payments
   name: payments
@@ -70,7 +72,7 @@ spec:
       serviceAccountName: payments
       automountServiceAccountToken: true
       containers:
-        - image: rosemarywang/spring-vault-example:v0.0.1
+        - image: ghcr.io/hashicorp-dev-advocates/workshop-spring-vault:main
           name: payments
           volumeMounts:
             - name: config-volume
@@ -79,3 +81,15 @@ spec:
         - name: config-volume
           configMap:
             name: payments-config
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: payments
+spec:
+  defaultBackend:
+    service:
+      name: payments
+      port:
+        number: 8081

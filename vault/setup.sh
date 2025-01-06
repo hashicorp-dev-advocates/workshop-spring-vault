@@ -65,6 +65,30 @@ kubectl get secret -n vault vault-k8s-auth-secret -o json | jq -r '.data."ca.crt
 kubectl get secret -n vault vault-k8s-auth-secret -o json | jq -r '.data.token' | base64 -d > tmp/k8s.token
 
 vault write auth/kubernetes/config \
-  token_reviewer_jwt="${K3S_TOKEN}" \
-  kubernetes_host="https://kubernetes.default.svc:443" \
+  token_reviewer_jwt="$(cat tmp/k8s.token)" \
+  kubernetes_host="https://10.5.0.4:6443" \
   kubernetes_ca_cert=@tmp/k8s.crt
+
+vault policy write payments - <<EOF
+path "database/creds/writer" {
+  capabilities = ["read", "create"]
+}
+
+path "secret/*" {
+  capabilities = ["read"]
+}
+
+path "transit/encrypt/payments" {
+  capabilities = ["update"]
+}
+
+path "transit/decrypt/payments" {
+  capabilities = ["update"]
+}
+EOF
+
+vault write auth/kubernetes/role/payments \
+  bound_service_account_names=payments \
+  bound_service_account_namespaces=default \
+  token_policies=payments
+  ttl=24h
