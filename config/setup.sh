@@ -12,7 +12,7 @@ export KUBECONFIG=./tmp/kubeconfig.yaml
 export VAULT_ADDR=http://127.0.0.1:8200
 export VAULT_TOKEN=root-token
 
-K3S_TOKEN=$(cat ./tmp/k3s.token) docker compose -f docker-compose.yaml up -d --build
+K3S_TOKEN=$(cat ./tmp/k3s.token) docker-compose -f docker-compose.yaml up -d --build
 
 # Wait for k3s to be ready
 until kubectl get nodes; do
