@@ -8,54 +8,90 @@ done
 
 vault secrets disable secret
 
-## Transit secrets engine
-
-vault secrets enable transit
-vault write -f transit/keys/payments type=rsa-4096
-
-## Database secrets engine
-
-vault secrets enable database
-vault write database/config/payments \
-    plugin_name=postgresql-database-plugin \
-    allowed_roles=writer,reader \
-    connection_url="postgresql://{{username}}:{{password}}@database:5432/payments?sslmode=disable" \
-    username="postgres" \
-    password="password"
-
-vault write -force database/rotate-root/payments
-vault write database/roles/writer \
-    db_name=payments \
-    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
-    GRANT SELECT, INSERT, UPDATE ON payment_card TO \"{{name}}\";" \
-    default_ttl="1m" \
-    max_ttl="2m"
-
-vault write database/roles/reader \
-    db_name=payments \
-    creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
-    GRANT SELECT ON payment_card TO \"{{name}}\";" \
-    default_ttl="1h" \
-    max_ttl="24h"
-
-vault secrets enable -version=2 -path=secret kv
-vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custom.StaticSecret.password=H@rdT0Gu3ss
-
 # Enable user auth
 vault auth enable userpass
 
+vault policy write dev - <<EOF
+path "sys/health"
+{
+  capabilities = ["read", "sudo"]
+}
+
+# Create and manage ACL policies broadly across Vault
+
+# List existing policies
+path "sys/policies/acl"
+{
+  capabilities = ["list"]
+}
+
+# Create and manage ACL policies
+path "sys/policies/acl/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Enable and manage authentication methods broadly across Vault
+
+# Manage auth methods broadly across Vault
+path "auth/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Create, update, and delete auth methods
+path "sys/auth/*"
+{
+  capabilities = ["create", "update", "delete", "sudo"]
+}
+
+# List auth methods
+path "sys/auth"
+{
+  capabilities = ["read"]
+}
+
+# Enable and manage the transit secrets engine at `transit/` path
+
+# List, create, update, and delete transit secrets
+path "transit/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Enable and manage the key/value secrets engine at `secret/` path
+
+# List, create, update, and delete key/value secrets
+path "secret/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Enable and manage the database secrets engine at `database/` path
+
+# List, create, update, and delete database secrets
+path "database/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Manage secrets engines
+path "sys/mounts/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# List existing secrets engines.
+path "sys/mounts"
+{
+  capabilities = ["read"]
+}
+EOF
+
 # Configure users
-vault write auth/userpass/users/ops \
+vault write auth/userpass/users/dev \
   password=password \
-  policies=ops
-
-vault write auth/userpass/users/datascience \
-  password=password \
-  policies=datascience
-
-vault write auth/userpass/users/runtime \
-  password=password \
-  policies=runtime
+  policies=dev
 
 # Enable kubernetes auth
 vault auth enable kubernetes
@@ -68,27 +104,3 @@ vault write auth/kubernetes/config \
   token_reviewer_jwt="$(cat tmp/k8s.token)" \
   kubernetes_host="https://10.5.0.4:6443" \
   kubernetes_ca_cert=@tmp/k8s.crt
-
-vault policy write payments - <<EOF
-path "database/creds/writer" {
-  capabilities = ["read", "create"]
-}
-
-path "secret/*" {
-  capabilities = ["read"]
-}
-
-path "transit/encrypt/payments" {
-  capabilities = ["update"]
-}
-
-path "transit/decrypt/payments" {
-  capabilities = ["update"]
-}
-EOF
-
-vault write auth/kubernetes/role/payments \
-  bound_service_account_names=payments \
-  bound_service_account_namespaces=default \
-  token_policies=payments
-  ttl=24h
