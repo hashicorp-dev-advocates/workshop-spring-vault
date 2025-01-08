@@ -1,0 +1,20 @@
+slug: workshop-spring-vault
+id: cruawuxro5xi
+title: Using Vault in Spring Boot Applications
+teaser: Learn how to use Vault in your Spring Boot application
+description: ""
+icon: ""
+tags: []
+owner: hashicorp-field-ops
+developers:
+- rosemary@hashicorp.com
+idle_timeout: 1800
+timelimit: 10800
+lab_config:
+  sidebar_enabled: true
+  feedback_recap_enabled: false
+  feedback_tab_enabled: false
+  loadingMessages: true
+  hideStopButton: false
+checksum: "16279613908326261813"
+enhanced_loading: false

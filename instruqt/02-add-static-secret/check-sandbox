@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+if ! vault kv get secret/workshop-spring-vault; then
+    fail-message "Store secret at `secret/workshop-spring-vault`"
+fi

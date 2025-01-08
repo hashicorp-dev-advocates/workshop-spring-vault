@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+if [ "$( vault secrets list -format=json | jq 'has("secret/")' )" == "false" ]; then
+    fail-message "Enable a key-value secrets engine at \`secret/\`"
+fi
