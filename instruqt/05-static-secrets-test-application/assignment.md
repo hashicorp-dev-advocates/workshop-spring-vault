@@ -48,6 +48,8 @@ Use the username `dev` and password `password` to log into Vault and store the V
 in the `VAULT_TOKEN` environment variable. This is a pre-defined environment variable
 that the Vault CLI uses to authenticate.
 
+Using the **Terminal** tab, log into Vault and store the token.
+
 ```shell
 export VAULT_TOKEN=$(vault login -method userpass -token-only username=dev password=password)
 ```
@@ -84,7 +86,7 @@ Rotate the secret
 Change the password of the secret in Vault.
 
 ```shell
-vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custom.StaticSecret.password=Sec0ndVers!on
+vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custom.StaticSecret.password=Sec0ndVersion
 ```
 
 After a few minutes, make a request to the application to get the secret in

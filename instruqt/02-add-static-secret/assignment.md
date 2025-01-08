@@ -41,7 +41,7 @@ The keys have the format of Spring application properties, as the application in
 
 <details>
 <summary><b>Solution</b></summary>
-Run the following command:
+Run the following command in the <b>Terminal</b> tab.
 
 ```shell
 vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custom.StaticSecret.password=H@rdT0Gu3ss

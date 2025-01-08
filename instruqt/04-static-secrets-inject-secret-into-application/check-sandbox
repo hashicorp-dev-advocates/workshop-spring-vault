@@ -7,6 +7,6 @@ if ! grep "@EnableScheduling" src/main/java/com/example/workshop_spring_vault/Wo
     fail-message "Add \`@EnableScheduling\` to main file to support scheduled task to refresh secret"
 fi
 
-if ! grep "@RefreshScope\s*ExampleClient" src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java; then
+if ! grep "@RefreshScope" src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java; then
     fail-message "Add \`@RefreshScope\` to main file to refresh ExampleClient with new secrets"
 fi

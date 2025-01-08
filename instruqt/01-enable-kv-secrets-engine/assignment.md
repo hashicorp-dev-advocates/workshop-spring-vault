@@ -50,7 +50,7 @@ You can find the details in this documentation: https://developer.hashicorp.com/
 
 <details>
 <summary><b>Solution</b></summary>
-Run the following command:
+Run the following command in the <b>Terminal</b> tab.
 
 ```shell
 vault secrets enable -version=2 -path=secret kv

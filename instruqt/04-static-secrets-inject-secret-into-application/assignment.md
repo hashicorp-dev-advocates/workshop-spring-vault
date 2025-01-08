@@ -36,7 +36,7 @@ and `custom.StaticSecret.password`.
 Verify custom application properties
 ===
 
-Open `src/main/java/com/example/workshop_spring_vault/AppProperties.java`.
+Open `src/main/java/com/example/workshop_spring_vault/AppProperties.java` in the **Code** tab.
 
 The file defines a set of custom application properties using the `@ConfigurationProperties` annotation.
 The custom properties have a prefix named `custom` and sub-properties under `StaticSecret`.
@@ -44,13 +44,13 @@ The custom properties have a prefix named `custom` and sub-properties under `Sta
 Inject username and password into a controller
 ===
 
-Open `src/main/java/com/example/workshop_spring_vault/StaticSecretController.java`.
+Open `src/main/java/com/example/workshop_spring_vault/StaticSecretController.java` in the **Code** tab.
 
 This class defines an API endpoint that returns the static username and password
 in plaintext (for example use only). Note that this endpoint shows an example of a
 web client (named `ExampleClient`) that connects to a third-party service using the username and password.
 
-```java
+```java,nocopy
 @Controller
 @ResponseBody
 class StaticSecretController {
@@ -67,12 +67,12 @@ class StaticSecretController {
 }
 ```
 
-Examine the example web client in `src/main/java/com/example/workshop_spring_vault/ExampleClient.java`.
+Examine the example web client in `src/main/java/com/example/workshop_spring_vault/ExampleClient.java` in the **Code** tab.
 
 It references the custom application properties. While this example returns the properties in plaintext,
 you can use this class to pass the properties to a `WebClient` to authenticate to a third-party service.
 
-```java
+```java,nocopy
 class ExampleClient {
     private final AppProperties properties;
 
@@ -106,13 +106,13 @@ to refresh any objects.
 > you can write additional code to reload based on key-value events from the
 > [Vault Enterprise event stream](https://developer.hashicorp.com/vault/docs/concepts/events).
 
-Open `src/main/java/com/example/workshop_spring_vault/VaultRefresher.java`.
+Open `src/main/java/com/example/workshop_spring_vault/VaultRefresher.java` in the **Code** tab.
 
 This file includes a method called `refresher` that runs on a delay defined by a custom property.
 The custom property in this example has a delay of three minutes.
 Each time the `refresher` method runs, it refreshes the application context.
 
-```java
+```java,nocopy
     @Scheduled(initialDelayString="${custom.refresh-interval-ms}",
             fixedDelayString = "${custom.refresh-interval-ms}")
     void refresher() {
@@ -121,13 +121,13 @@ Each time the `refresher` method runs, it refreshes the application context.
     }
 ```
 
-Open `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java`.
+Open `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java` in the **Code** tab.
 
 This main file defines an `ExampleClient` Bean that should be injected into the application.
 Note that the Bean returns a new `ExampleClient` once it gets a new username and password
 from Vault.
 
-```java
+```java,nocopy
 // omitted
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)
@@ -157,15 +157,15 @@ In order to properly support an application context refresh, you must completely
 any objects that reference the secret and define the object as a Bean. If you do not, the
 application will not identify the objects that require new secrets.
 
-Update `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java`
-to support the scheduled `refresher` task and refresh `ExampleClient` each time the properties change.
+Update `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java` in the **Code** tab.
 
-> [!NOTE]
-> You will need to add two annotations: `@EnableScheduling` and `@RefreshScope`.
+You will need to add two annotations, `@EnableScheduling` and `@RefreshScope`, to support
+scheduled `refresher` task and refresh `ExampleClient` each time the properties change.
 
 <details>
 <summary><b>Solution</b></summary>
-Add two annotations to enable scheduling for the application and refresh scope for the bean.
+Add two annotations to enable scheduling for the application and refresh scope for the bean
+in the <b>Code</b> tab.
 
 ```java
 // omitted

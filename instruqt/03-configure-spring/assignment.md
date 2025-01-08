@@ -51,11 +51,11 @@ Recall that you stored a username and password at `secret/workshop-spring-vault`
 Verify the Spring application name
 ===
 
-Open `src/main/resources/application.properties`.
+Open `src/main/resources/application.properties` in the **Code** tab.
 
 Check the application name matches `workshop-spring-vault`.
 
-```java
+```java,nocopy
 spring.application.name=workshop-spring-vault
 ```
 
@@ -74,18 +74,20 @@ Use the username `dev` and password `password` to log into Vault and store the V
 in the `VAULT_TOKEN` environment variable. This is a pre-defined environment variable
 that the Vault CLI uses to authenticate.
 
+Run the command in the **Terminal** tab.
+
 ```shell
 export VAULT_TOKEN=$(vault login -method userpass -token-only username=dev password=password)
 ```
 
-Open `src/main/resources/application.properties`.
+Open `src/main/resources/application.properties` in the **Code** tab.
 
 The application properties define the Vault URI and token for
 the application to locally authenticate to Vault for testing.
 Note that the `spring.cloud.vault.token` references the
 `VAULT_TOKEN` environment variable you set above.
 
-```java
+```java,nocopy
 spring.cloud.vault.uri=${VAULT_ADDR:http://127.0.0.1:8200}
 spring.cloud.vault.token=${VAULT_TOKEN}
 ```
@@ -93,18 +95,18 @@ spring.cloud.vault.token=${VAULT_TOKEN}
 Configure Spring to read static secrets from Vault
 ===
 
-Open `src/main/resources/application.properties`.
+Open `src/main/resources/application.properties` in the **Code** tab.
 
 The application properties update the Spring Cloud configuration
 to import secrets from Vault.
 
-```java
+```java,nocopy
 spring.config.import=vault://
 ```
 
 However, the application property to read from Vault's key-value engine is currently disabled.
 
-```java
+```java,nocopy
 spring.cloud.vault.kv.enabled=false
 ```
 
@@ -112,7 +114,7 @@ Change the `spring.cloud.vault.kv.enabled` property to `true`.
 
 <details>
 <summary><b>Solution</b></summary>
-Change the property to true.
+Change the property to true in the <b>Code</b> tab.
 
 ```java
 spring.cloud.vault.kv.enabled=true
