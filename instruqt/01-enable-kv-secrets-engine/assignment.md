@@ -2,7 +2,7 @@
 slug: enable-kv-secrets-engine
 id: gonlxb3pd8eo
 type: challenge
-title: Enable Vault's key-value secrets engine
+title: Static Secrets - Enable Vault's key-value secrets engine
 teaser: Mount Vault's key-value secrets engine to store static secrets.
 notes:
 - type: text
