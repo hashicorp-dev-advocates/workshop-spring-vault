@@ -4,16 +4,16 @@ type: challenge
 title: Dynamic Secrets - Add database configuration
 teaser: Configure Vault's database secrets engine to issue usernames and passwords
 notes:
-  - type: text
-    contents: |-
-      A secret is simply a collection of keys and values that are stored at a specific path.
+- type: text
+  contents: |-
+    A secret is simply a collection of keys and values that are stored at a specific path.
 
-      Vault has a number of secrets engines, which you mount at various API paths to store
-      and manage secrets.  You can write and read a secret from Vault.
+    Vault has a number of secrets engines, which you mount at various API paths to store
+    and manage secrets.  You can write and read a secret from Vault.
 
-      Vault manages certain types of secrets, including database usernames and passwords.
-      When it detects a secret's lease expires, it deletes the credentials from the database
-      on your behalf.
+    Vault manages certain types of secrets, including database usernames and passwords.
+    When it detects a secret's lease expires, it deletes the credentials from the database
+    on your behalf.
 tabs:
 - id: vewwfodxkmai
   title: Terminal
