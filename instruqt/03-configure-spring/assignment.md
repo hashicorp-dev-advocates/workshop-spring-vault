@@ -19,16 +19,6 @@ notes:
     Alternatively, you can write code that uses Spring Vault, the base library, to retrieve a secret from
     Vault's key-value secrets engine. In general, Spring Cloud Vault minimizes the
     extra code you need to write by automatically reading and injecting secrets into application properties.
-- type: text
-  contents: |-
-    On application startup, Spring Cloud Vault attempts to retrieve secrets from [the following paths in Vault](https://cloud.spring.io/spring-cloud-vault/reference/html/#vault.config.backends.kv.versioned):
-
-    ```plaintext
-    /secret/{application}/{profile}
-    /secret/{application}
-    /secret/{default-context}/{profile}
-    /secret/{default-context}
-    ```
 tabs:
 - id: 4x2lifwdqegx
   title: Code
@@ -44,9 +34,20 @@ difficulty: ""
 enhanced_loading: null
 ---
 
-Spring Cloud Vault attempts to load secrets from certain default paths in Vault.
-One of those default paths include the application name.
+On application startup, Spring Cloud Vault attempts to retrieve secrets from the following paths in Vault:
+
+```plaintext
+/secret/{application}/{profile}
+/secret/{application}
+/secret/{default-context}/{profile}
+/secret/{default-context}
+```
+
+For more details, review: https://cloud.spring.io/spring-cloud-vault/reference/html/#vault.config.backends.kv.versioned
+
 Recall that you stored a username and password at `secret/workshop-spring-vault`.
+The secret path in Vault takes the format of `/secret/{application}`, which Spring Cloud Vault
+automatically reads.
 
 Verify the Spring application name
 ===

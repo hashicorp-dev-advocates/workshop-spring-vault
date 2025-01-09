@@ -1,5 +1,6 @@
 ---
 slug: dynamic-secrets-enable-database-secrets-engine
+id: zytc3wqxfypy
 type: challenge
 title: Dynamic Secrets - Enable Vault's database secrets engine
 teaser: Mount Vault's database secrets engine to manage usernames and passwords for
@@ -28,12 +29,12 @@ notes:
     1. User authentication - Once Vault verifies your identity, it provides a token for future requests.
     1. Machine authentication - Once Vault verifies a service or machine identity, it provides a token for future requests.
 tabs:
-- id: vewwfodxkmai
+- id: tyyuk81virxo
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: 01ddg0sifytr
+- id: sr44ystyyiy8
   title: Code
   type: code
   hostname: sandbox
@@ -48,7 +49,7 @@ your behalf. Many secrets engines support some kind of dynamic secret capability
 The database engine generates dynamic secrets for a database (username and password) for
 a variety of databases.
 
-This guide will walk you through configuring the database engine and 
+This guide will walk you through configuring the database engine and
 generating dynamic credentials for a PostgreSQL database.
 
 Enable the database secrets engine

@@ -1,5 +1,6 @@
 ---
 slug: dynamic-secrets-add-database-configuration
+id: iq0gnppx44gp
 type: challenge
 title: Dynamic Secrets - Add database configuration
 teaser: Configure Vault's database secrets engine to issue usernames and passwords
@@ -15,12 +16,12 @@ notes:
     When it detects a secret's lease expires, it deletes the credentials from the database
     on your behalf.
 tabs:
-- id: vewwfodxkmai
+- id: tleersznqguw
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: 01ddg0sifytr
+- id: mi5nek0cpavk
   title: Code
   type: code
   hostname: sandbox

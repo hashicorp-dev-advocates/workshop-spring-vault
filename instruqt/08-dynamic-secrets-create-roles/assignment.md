@@ -1,5 +1,6 @@
 ---
 slug: dynamic-secrets-create-roles
+id: xuvtqbqtcif3
 type: challenge
 title: Dynamic Secrets - Create Vault roles to access database
 teaser: Set up roles in Vault to read from and write to the database
@@ -12,12 +13,12 @@ notes:
     You define and control the permissions a given database credential
     has by defining a Vault role.
 tabs:
-- id: vewwfodxkmai
+- id: 8fu8vmx9en18
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: 01ddg0sifytr
+- id: ggmcllouzf0a
   title: Code
   type: code
   hostname: sandbox
@@ -95,7 +96,7 @@ PGPASSWORD=<copy from Vault output> psql -h 127.0.0.1 -U <copy from Vault output
 There should be one record.
 
 ```shell
- id | user_id |        name         |  number  | expiry | cv3  
+ id | user_id |        name         |  number  | expiry | cv3
 ----+---------+---------------------+----------+--------+------
   1 |     123 | Mr Nicholas Jackson | 12313434 | 01/23  | 1231
 (1 row)
@@ -107,7 +108,7 @@ Create a Vault role to read from the database
 
 Create a `reader` role that allows a human user to select records from the `payments` table.
 
-The permissions should grant select on the `payment_card` table, 
+The permissions should grant select on the `payment_card` table,
 a default TTL of 1 hour, and a maximum of 24 hours. Since a user leverages
 the `reader` role to debug the database, it helps to have an longer TTL for the
 database credentials. Other parameters should match the `writer` role you created.
@@ -157,7 +158,7 @@ PGPASSWORD=<copy from Vault output> psql -h 127.0.0.1 -U <copy from Vault output
 The command outputs one record.
 
 ```shell,nocopy
- id | user_id |        name         |  number  | expiry | cv3  
+ id | user_id |        name         |  number  | expiry | cv3
 ----+---------+---------------------+----------+--------+------
   1 |     123 | Mr Nicholas Jackson | 12313434 | 01/23  | 1231
 (1 row)
