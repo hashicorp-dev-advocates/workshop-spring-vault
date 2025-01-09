@@ -2,9 +2,9 @@
 set -euxo pipefail
 
 if [ "$( vault kv get -field=custom.StaticSecret.username secret/workshop-spring-vault )" != "nic" ]; then
-    echo "Write the username correct configuration property to \`secret/workshop-spring-vault\`"
+  fail-message "Write the username correct configuration property to \`secret/workshop-spring-vault\`"
 fi
 
 if [ "$( vault kv get -field=custom.StaticSecret.password secret/workshop-spring-vault )" != "H@rdT0Gu3ss" ]; then
-   echo "Write the password with correct configuration property to \`secret/workshop-spring-vault\`"
+  fail-message "Write the password with correct configuration property to \`secret/workshop-spring-vault\`"
 fi

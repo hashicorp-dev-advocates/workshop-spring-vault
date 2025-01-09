@@ -2,9 +2,9 @@
 set -euxo pipefail
 
 if ! vault read database/creds/writer; then
-    echo "Set up a Vault role to write to the database"
+    fail-message "Set up a Vault role to write to the database"
 fi
 
 if ! vault read database/creds/reader; then
-    echo "Set up a Vault role to write to the database"
+    fail-message "Set up a Vault role to write to the database"
 fi
