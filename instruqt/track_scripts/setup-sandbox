@@ -11,7 +11,7 @@ done
 sudo systemctl stop unattended-upgrades
 
 sudo apt update
-sudo apt install -y jq
+sudo apt install -y jq postgresql-client
 
 # install kubectl
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl

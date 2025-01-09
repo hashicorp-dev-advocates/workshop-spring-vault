@@ -83,7 +83,7 @@ The request returns the value of the username and password.
 Rotate the secret
 ===
 
-Change the password of the secret in Vault.
+Change the password of the secret in Vault in the **API Request** tab.
 
 ```shell
 vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custom.StaticSecret.password=Sec0ndVersion

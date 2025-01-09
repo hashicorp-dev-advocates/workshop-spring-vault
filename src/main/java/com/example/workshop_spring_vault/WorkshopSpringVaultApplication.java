@@ -24,7 +24,6 @@ public class WorkshopSpringVaultApplication {
 	}
 
 	@Bean
-	@RefreshScope
 	DataSource dataSource(DataSourceProperties properties) {
 		log.info("rebuild database secrets: " +
 				properties.getUsername() +
