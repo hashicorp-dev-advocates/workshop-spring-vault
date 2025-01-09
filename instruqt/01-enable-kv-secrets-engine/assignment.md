@@ -7,9 +7,10 @@ teaser: Mount Vault's key-value secrets engine to store static secrets.
 notes:
 - type: text
   contents: |
-    In this workshop, you will learn how to use [Spring Vault](https://spring.io/projects/spring-vault) and [Spring Cloud Vault](https://cloud.spring.io/spring-cloud-vault/reference/html/) libraries in your Spring Boot application to retrieve secrets from and encrypt payloads with HashiCorp Vault.
+    In this section of the workshop, you will learn how to use [Spring Vault](https://spring.io/projects/spring-vault) and [Spring Cloud Vault](https://cloud.spring.io/spring-cloud-vault/reference/html/)
+    libraries in your Spring Boot application to retrieve static secrets you store in HashiCorp Vault.
 
-    In this first challenge, you will:
+    In this first section, you will:
 
     1. Enable Vault's key-value secrets engine.
     2. Add a static secret (username and password) to Vault.
@@ -41,6 +42,18 @@ tabs:
 difficulty: ""
 enhanced_loading: null
 ---
+
+You manually manage a static secret by getting a set of credentials from a third-party service
+and storing it in Vault. Vault supports static secrets using the key-value secrets engine.
+If you need to rotate the secret, you must get a new set of credentials from the third-party service
+and update Vault with a new version of the secret.
+
+This guide will walk you through setting up the key-value secrets engine and
+storing a secret in Vault for an application to use.
+
+Enable the key-value secrets engine
+===
+
 Enable the key-value secrets engine at the path `secret` in Vault. You must mount secrets engines before you can add secrets.
 
 You can find the details in this documentation: https://developer.hashicorp.com/vault/docs/secrets/kv/kv-v2/setup.

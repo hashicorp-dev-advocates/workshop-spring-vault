@@ -28,9 +28,12 @@ difficulty: ""
 enhanced_loading: null
 ---
 
-Write a static username and password to Vault's key-value secrets engine.
+You can write any arbitrary set of keys and values into a secret managed by Vault's key-value secrets engine.
 
 You can find the details in this documentation: https://developer.hashicorp.com/vault/docs/secrets/kv/kv-v2#writing-reading-arbitrary-data
+
+Add a static secret with username and password
+===
 
 Create a secret named after the application, `workshop-spring-vault`, that has two keys and values.
 
@@ -49,7 +52,6 @@ vault kv put secret/workshop-spring-vault custom.StaticSecret.username=nic custo
 </details>
 
 <details>
-
 <summary><b>Verify</b></summary>
 After adding the secret, verify that you can read the secret using the following:
 

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euxo pipefail
+
+if [ "$( vault read -field=connection_details database/config/payments )" != "map[connection_url:postgresql://{{username}}:{{password}}@database:5432/payments?sslmode=disable username:postgres]" ]; then
+    echo "Write the correct connection details to \`database/config/payments\`"
+fi
+
+if [ "$( vault read -field=allowed_roles database/config/payments )" != "[writer reader]" ]; then
+   echo "Write the correct allowed roles to \`database/config/payments\`"
+fi
+
+if [ "$( vault read -field=plugin_name database/config/payments )" != "postgresql-database-plugin" ]; then
+   echo "Write the correct plugin name to \`database/config/payments\`"
+fi
