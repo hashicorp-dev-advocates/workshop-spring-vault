@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+if ! vault read transit/keys/payments; then
+    fail-message "Set up an encryption key for \`payments\`"
+fi

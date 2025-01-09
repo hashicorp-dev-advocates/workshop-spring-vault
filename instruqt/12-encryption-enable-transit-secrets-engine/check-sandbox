@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+if [ "$( vault secrets list -format=json | jq 'has("transit/")' )" == "false" ]; then
+    fail-message "Enable a transit secrets engine at \`transit/\`"
+fi

@@ -49,7 +49,7 @@ your behalf. Many secrets engines support some kind of dynamic secret capability
 The database engine generates dynamic secrets for a database (username and password) for
 a variety of databases.
 
-This guide will walk you through configuring the database engine and
+This guide will walk you through configuring the database secrets engine and
 generating dynamic credentials for a PostgreSQL database.
 
 Enable the database secrets engine
