@@ -82,7 +82,7 @@ vault read database/config/payments
 ```
 </details>
 
-Rotating the root database username and password
+Rotate the root database username and password
 ===
 
 Once you pass the root database username and password in Vault,
