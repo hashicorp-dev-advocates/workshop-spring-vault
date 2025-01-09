@@ -4,13 +4,13 @@ type: challenge
 title: Dynamic Secrets - Create Vault roles to access database
 teaser: Set up roles in Vault to read from and write to the database
 notes:
-  - type: text
-    contents: |-
-      Unlike static secrets and Vault's key-value secrets engine, you need
-      to attach a level of access to a secret managed by Vault.
-      
-      You define and control the permissions a given database credential
-      has by defining a Vault role.
+- type: text
+  contents: |-
+    Unlike static secrets and Vault's key-value secrets engine, you need
+    to attach a level of access to a secret managed by Vault.
+
+    You define and control the permissions a given database credential
+    has by defining a Vault role.
 tabs:
 - id: vewwfodxkmai
   title: Terminal

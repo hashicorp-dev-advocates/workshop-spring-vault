@@ -1,11 +1,10 @@
-#!/bin/sh
-#
-# This script runs when the platform check the challenge.
-#
-# The platform determines if the script was successful using the exit code of this
-# script. If the exit code is not 0, the script fails. 
-#
+#!/bin/bash
+set -euxo pipefail
 
-echo "This is the check script"
+if ! vault read database/creds/writer; then
+    echo "Set up a Vault role to write to the database"
+fi
 
-exit 0
+if ! vault read database/creds/reader; then
+    echo "Set up a Vault role to write to the database"
+fi
