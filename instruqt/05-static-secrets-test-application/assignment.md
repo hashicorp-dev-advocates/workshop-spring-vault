@@ -66,7 +66,7 @@ Run Maven to start the application in the **Terminal** tab.
 ./mvnw spring-boot:run
 ```
 
-When the Spring Boot application starts, it 
+When the Spring Boot application starts, it
 injects the static username and password into the `secret/` endpoint.
 
 Test the application
@@ -106,7 +106,7 @@ The request returns the value of the username and new password.
 {"username":"nic","password":"Sec0ndVersion"}
 ```
 
-Examine the application logs in the **Terminal** tab. 
+Examine the application logs in the **Terminal** tab.
 The application rebuilt `ExampleClient` with the new password within 3 minutes
 of the first request for the static secret.
 

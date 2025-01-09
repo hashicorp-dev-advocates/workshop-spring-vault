@@ -53,7 +53,7 @@ class PaymentController {
         this.db = JdbcClient.create(dataSource);
         // omitted
     }
-    
+
     // omitted
 }
 ```
@@ -143,7 +143,7 @@ You will need to the `@RefreshScope` annotation to refresh the `DataSource` each
 
 <details>
 <summary><b>Solution</b></summary>
-Add two annotations to enable scheduling for the application and refresh scope for the bean
+Add an annotation to refresh scope for the bean
 in the <b>Code</b> tab.
 
 ```java

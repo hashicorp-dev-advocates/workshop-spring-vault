@@ -1,31 +1,32 @@
 ---
 slug: dynamic-secrets-test-application
+id: 9xyk5a6n0xit
 type: challenge
 title: Dynamic Secrets - Test Application
 teaser: Run the application that uses dynamic secrets from Vault.
 notes:
-  - type: text
-    contents: |-
-      For more resources on using Spring Vault to read static secrets from Vault, check out:
+- type: text
+  contents: |-
+    For more resources on using Spring Vault to read static secrets from Vault, check out:
 
-      - [Tutorial](https://developer.hashicorp.com/vault/tutorials/app-integration/spring-reload-secrets#reload-dynamic-secrets)
-      - [Example Demo](https://www.youtube.com/watch?v=E9XDfOVNN2U)
+    - [Tutorial](https://developer.hashicorp.com/vault/tutorials/app-integration/spring-reload-secrets#reload-dynamic-secrets)
+    - [Example Demo](https://www.youtube.com/watch?v=E9XDfOVNN2U)
 tabs:
-  - id: vewwfodxkmai
-    title: Terminal
-    type: terminal
-    hostname: sandbox
-    workdir: /root/workshop-spring-vault
-  - id: ajxeiws4w8rd
-    title: API Request
-    type: terminal
-    hostname: sandbox
-    workdir: /root
-  - id: 01ddg0sifytr
-    title: Code
-    type: code
-    hostname: sandbox
-    path: /root/workshop-spring-vault
+- id: dxqqginnkqkb
+  title: Terminal
+  type: terminal
+  hostname: sandbox
+  workdir: /root/workshop-spring-vault
+- id: 4gjkvukj4jxi
+  title: API Request
+  type: terminal
+  hostname: sandbox
+  workdir: /root
+- id: dnolaw0mgnch
+  title: Code
+  type: code
+  hostname: sandbox
+  path: /root/workshop-spring-vault
 difficulty: ""
 enhanced_loading: null
 ---
