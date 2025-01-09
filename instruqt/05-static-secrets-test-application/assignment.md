@@ -66,8 +66,8 @@ Run Maven to start the application in the **Terminal** tab.
 ./mvnw spring-boot:run
 ```
 
-When the Spring Boot application starts, it retrieves records from a database
-and injects the static username and password into the `secret/` endpoint.
+When the Spring Boot application starts, it 
+injects the static username and password into the `secret/` endpoint.
 
 Test the application
 ===
@@ -79,6 +79,10 @@ curl localhost:8080/secret
 ```
 
 The request returns the value of the username and password.
+
+```shell,nocopy
+{"username":"nic","password":"H@rdT0Gu3ss"}
+```
 
 Rotate the secret
 ===
@@ -96,8 +100,21 @@ the **API Request** tab.
 curl localhost:8080/secret
 ```
 
-The request returns the value of the username and new password. The application logs should
-also show that the application rebuilt `ExampleClient` with the new password.
+The request returns the value of the username and new password.
+
+```shell,nocopy
+{"username":"nic","password":"Sec0ndVersion"}
+```
+
+Examine the application logs in the **Terminal** tab. 
+The application rebuilt `ExampleClient` with the new password within 3 minutes
+of the first request for the static secret.
+
+```shell,nocopy
+2025-01-09T13:59:35.375-05:00  INFO 83075 --- [workshop-spring-vault] [           main] opSpringVaultApplication$$SpringCGLIB$$0 : rebuild client using static secrets: nic,H@rdT0Gu3ss
+## omitted
+2025-01-09T14:02:29.229-05:00  INFO 83075 --- [workshop-spring-vault] [nio-8080-exec-6] opSpringVaultApplication$$SpringCGLIB$$0 : rebuild client using static secrets: nic,Sec0ndVersion
+```
 
 Summary
 ===

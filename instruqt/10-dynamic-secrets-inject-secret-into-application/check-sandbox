@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euxo pipefail
+
+if [ "$(grep '@RefreshScope' src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java | wc -l | tr -d ' ')" != "2" ]; then
+    fail-message "Add \`@RefreshScope\` to main file to refresh DataSource with new secrets"
+fi

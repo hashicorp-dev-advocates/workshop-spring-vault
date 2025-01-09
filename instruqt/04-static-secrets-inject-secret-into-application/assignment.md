@@ -124,8 +124,8 @@ Each time the `refresher` method runs, it refreshes the application context.
 Open `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java` in the **Code** tab.
 
 This main file defines an `ExampleClient` Bean that should be injected into the application.
-Note that the Bean returns a new `ExampleClient` once it gets a new username and password
-from Vault.
+Note that the Bean returns a new `ExampleClient` once Spring Cloud Vault gets a new username and password
+from Vault and updates the properties.
 
 ```java,nocopy
 // omitted
@@ -155,7 +155,9 @@ public class WorkshopSpringVaultApplication {
 
 In order to properly support an application context refresh, you must completely rebuild
 any objects that reference the secret and define the object as a Bean. If you do not, the
-application will not identify the objects that require new secrets.
+application will not identify the objects that require new secrets. Use the `@Bean` and
+[`@RefreshScope`](https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/application-context-services.html#refresh-scope)
+annotations to reload the object.
 
 Update `src/main/java/com/example/workshop_spring_vault/WorkshopSpringVaultApplication.java` in the **Code** tab.
 
