@@ -1,20 +1,22 @@
 ---
 slug: encryption-add-key
+id: tpdfkwecnstw
 type: challenge
 title: Encryption - Add an encryption key for the application
-teaser: Create an encryption key for the Spring Boot application managed by Vault's transit secrets engine.
+teaser: Create an encryption key for the Spring Boot application managed by Vault's
+  transit secrets engine.
 notes:
 - type: text
   contents: |-
     When you create an encryption key in Vault, Vault has the ability to help rotate the key and rekey any
     data with the new key.
 tabs:
-- id: dxqqginnkqkb
+- id: xbggarvsslgj
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: dnolaw0mgnch
+- id: olfadqyo4ogk
   title: Code
   type: code
   hostname: sandbox
@@ -81,7 +83,7 @@ key_version    1
 ```
 
 > [!NOTE]
-> The `ciphertext` value is probably going to be larger than the original credit card number, if 
+> The `ciphertext` value is probably going to be larger than the original credit card number, if
 > you have a size limit on the column you may need to increase it.
 
 Your application can use the same API path to encrypt a payload.

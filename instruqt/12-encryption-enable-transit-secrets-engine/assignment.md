@@ -1,5 +1,6 @@
 ---
 slug: encryption-enable-transit-secrets-engine
+id: qfqoakxkkjki
 type: challenge
 title: Encryption - Enable Vault's transit secrets engine
 teaser: Mount Vault's transit secrets engine to manage encryption keys for the application.
@@ -29,12 +30,12 @@ notes:
     1. User authentication - Once Vault verifies your identity, it provides a token for future requests.
     1. Machine authentication - Once Vault verifies a service or machine identity, it provides a token for future requests.
 tabs:
-- id: dxqqginnkqkb
+- id: yveoizmjo920
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: dnolaw0mgnch
+- id: zhzkjkz8kv7v
   title: Code
   type: code
   hostname: sandbox
