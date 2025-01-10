@@ -1,0 +1,10 @@
+#!/bin/bash
+set -euxo pipefail
+
+if ! vault policy read payments; then
+    fail-message "Set up a Vault policy for \`payments\`"
+fi
+
+if ! vault read auth/kubernetes/role/payments; then
+    fail-message "Set up a Vault role for \`payments\` service account in Kubernetes"
+fi
