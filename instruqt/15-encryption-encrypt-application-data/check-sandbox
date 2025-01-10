@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euxo pipefail
+
+set-workdir /root/workshop-spring-vault
+
+if ! grep "vaultTransit.encrypt(request.number())" src/main/java/com/example/workshop_spring_vault/PaymentController.java; then
+    fail-message "Add VaultTransit encrypt method to PaymentController"
+fi
