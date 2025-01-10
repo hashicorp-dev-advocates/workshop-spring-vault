@@ -1,5 +1,6 @@
 ---
 slug: encryption-configure-application
+id: yzlb9jdoy468
 type: challenge
 title: Encryption - Configure application
 teaser: Refactor the Spring application to encrypt the data in the database
@@ -15,12 +16,12 @@ notes:
     This workshop primarily focuses on using Spring Vault to interface
     with Vault's transit secrets engine.
 tabs:
-- id: xbggarvsslgj
+- id: km0mniuaxtgp
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: olfadqyo4ogk
+- id: hvse6h51hi93
   title: Code
   type: code
   hostname: sandbox

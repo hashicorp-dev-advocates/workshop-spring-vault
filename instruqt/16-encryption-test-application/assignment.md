@@ -1,30 +1,31 @@
 ---
 slug: encryption-test-application
+id: qgu913d5yjhg
 type: challenge
 title: Encryption - Test application
 teaser: Run the application that uses Vault to encrypt and decrypt customer data.
 notes:
-  - type: text
-    contents: |-
-      For more resources on using Spring Vault to encrypt and decrypt data:
+- type: text
+  contents: |-
+    For more resources on using Spring Vault to encrypt and decrypt data:
 
-      - [Tutorial](https://developer.hashicorp.com/vault/tutorials/encryption-as-a-service/eaas-spring-demo)
+    - [Tutorial](https://developer.hashicorp.com/vault/tutorials/encryption-as-a-service/eaas-spring-demo)
 tabs:
-  - id: vewwfodxkmai
-    title: Terminal
-    type: terminal
-    hostname: sandbox
-    workdir: /root/workshop-spring-vault
-  - id: ajxeiws4w8rd
-    title: API Request
-    type: terminal
-    hostname: sandbox
-    workdir: /root
-  - id: 01ddg0sifytr
-    title: Code
-    type: code
-    hostname: sandbox
-    path: /root/workshop-spring-vault
+- id: hv28lyfl2ih5
+  title: Terminal
+  type: terminal
+  hostname: sandbox
+  workdir: /root/workshop-spring-vault
+- id: sz8tflrgbuzi
+  title: API Request
+  type: terminal
+  hostname: sandbox
+  workdir: /root
+- id: bfpktnnufqkj
+  title: Code
+  type: code
+  hostname: sandbox
+  path: /root/workshop-spring-vault
 difficulty: ""
 enhanced_loading: null
 ---
@@ -63,8 +64,8 @@ Run Maven to start the application in the **Terminal** tab.
 ./mvnw spring-boot:run
 ```
 
-When the Spring Boot application starts, it
-injects the static username and password into the `secret/` endpoint.
+When the Spring Boot application starts, it injects the static
+and database secrets.
 
 Create a new payment card record
 ===
@@ -121,10 +122,23 @@ before you implemented Vault transit secrets engine. The second record that you 
 has a ciphertext credit card number.
 
 ```shell,nocopy
- id | user_id |        name         |  number  | expiry | cv3
-----+---------+---------------------+----------+--------+------
-  1 |     123 | Mr Nicholas Jackson | 12313434 | 01/23  | 1231
-(1 row)
+ id | user_id |        name         |                                                                                                                                                                                                                                                                                                                                                        number                                                                                                                                                                                                                                                                                                                                                         | expiry | cv3  
+----+---------+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------
+  1 |     123 | Mr Nicholas Jackson | 12313434                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 01/23  | 1231
+  2 |     456 | Mr Nicholas Jackson | vault:v1:LH5Gfh1Meh1S19hSvBNKnnCnH+M7q9yrNCYLpzaAbLNjJCOiZQQbjDnXHrKaiQh0vUNtTWr/fDfpyW5AOBZApN2gXUL+5Mv0+oCINGjoCnNaTSX5ONMRNcnZXAAwOXOV3K6EjHJcYw98Ym8JaktnYAMx/et5zzZhnWMnJt+C21XLAlVixFTpRUm2ViK+AxOuZyzrOZVYR1Czo+kIRzYF7H7BozwiCytlXbgSoyuY7C4pHTIrO4JPIzLN3gpTumlQZY9hTSF0UvgqLelgI2wnBHsn5BwDtg1uFTNTEud+egbhaZiBUJ0vo2h+tsoeXnPdFsvvBYeKVlr66ASq3LvdaUpxX9bOItHRpy8jQdnpM9DEKD/DRSNLVPjZBrnaR3jPcfKVN4D2+hdcncawl0yMV1v701d0r6eRBtP9opoakFA4dgxN85sw/Mb51kPTxZqwtI4VhvZGRs2hsZL0YEP+B/hhZR4Yw/LTHxixFhVahxXg+MifycNlgnE2wUMAg+mY+98wceUHgbsxewf7iBzfss7oZWuFN5apUdUZelp0aMYRZEttLhKAfbAlll8dba+B+gElGX2LE+p/QEjra9IIOUy4nC6iWd/GXUerib6gykSFzybQ4q/nHssGOOdsqqBdLPbVLoQqJNC4UewH1QXuPGYHlCwCmGOwogUIFKED7M0= | 01/26  | 9081
+(2 rows)
+```
+
+Make a request to the API for the second payment card record.
+
+```shell
+curl 127.0.0.1:8080/paymentcard/2
+```
+
+The application uses Vault to decrypt the ciphertext and respond with the plaintext card number.
+
+```shell,nocopy
+[{"id":2,"user_id":456,"name":"Mr Nicholas Jackson","number":"456789012345","expiry":"01/26","cv3":"9081"}]
 ```
 
 If an unauthorized user or service accesses the data in the database, they cannot decrypt and use

@@ -1,5 +1,6 @@
 ---
 slug: encryption-encrypt-application-data
+id: txupfk42ixrk
 type: challenge
 title: Encryption - Encrypt application data
 teaser: Refactor the Spring application to encrypt data before storing it in a database.
@@ -11,12 +12,12 @@ notes:
     annotation instead of injecting them directly using `@Value`. This provides flexibility in updating
     the configuration, should you require multiple encryption keys or configuration properties.
 tabs:
-- id: olfadqyo4ogk
+- id: wxxzgaunz3xi
   title: Code
   type: code
   hostname: sandbox
   path: /root/workshop-spring-vault
-- id: xbggarvsslgj
+- id: ckmu8yyzrfat
   title: Terminal
   type: terminal
   hostname: sandbox
