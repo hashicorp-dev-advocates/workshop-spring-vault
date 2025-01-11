@@ -5,8 +5,8 @@ name: Build Container - Example Spring Vault Application
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    tags:
+      - 'stable'
     paths:
       - .github/workflows/app.yaml
       - src/**

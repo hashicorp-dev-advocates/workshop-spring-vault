@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import javax.sql.DataSource;
 
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties(AppProperties.class)
 public class WorkshopSpringVaultApplication {
 
@@ -24,6 +25,7 @@ public class WorkshopSpringVaultApplication {
 	}
 
 	@Bean
+	@RefreshScope
 	DataSource dataSource(DataSourceProperties properties) {
 		log.info("rebuild database secrets: " +
 				properties.getUsername() +
@@ -40,6 +42,7 @@ public class WorkshopSpringVaultApplication {
 	}
 
 	@Bean
+	@RefreshScope
 	ExampleClient exampleClient(AppProperties properties) {
 		log.info("rebuild client using static secrets: " +
 				properties.getStaticSecret().getUsername() +

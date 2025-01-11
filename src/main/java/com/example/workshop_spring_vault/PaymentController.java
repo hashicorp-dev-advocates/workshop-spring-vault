@@ -55,7 +55,7 @@ class PaymentController {
                         + "RETURNING id",
                 request.userId(),
                 request.name(),
-                request.number(),
+                vaultTransit.encrypt(request.number()),
                 request.expiry(),
                 request.cv3());
         var id = this.db.sql(statement).query((rs, rowNum) -> valueOf(
