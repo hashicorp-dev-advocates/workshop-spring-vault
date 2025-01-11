@@ -26,8 +26,8 @@ data:
     
     spring.cloud.vault.uri=http://10.5.0.2:8200
     spring.cloud.vault.fail-fast=true
-    spring.cloud.vault.authentication: KUBERNETES
-    spring.cloud.vault.kubernetes.role: payments
+    spring.cloud.vault.authentication=KUBERNETES
+    spring.cloud.vault.kubernetes.role=payments
     
     custom.transit.path=transit
     custom.transit.key=payments

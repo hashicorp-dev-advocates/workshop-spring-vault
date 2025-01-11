@@ -102,7 +102,7 @@ Run the following command in the <b>Terminal</b> tab.
 vault write auth/kubernetes/role/payments \
   bound_service_account_names=payments \
   bound_service_account_namespaces=default \
-  token_policies=payments
+  token_policies=payments \
   ttl=24h
 ```
 </details>

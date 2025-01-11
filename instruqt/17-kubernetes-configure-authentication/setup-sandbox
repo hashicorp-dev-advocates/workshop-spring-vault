@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euxo pipefail
+
+set-workdir /root/workshop-spring-vault/tmp/kubeconfig.yaml
+
+export KUBECONFIG=/root/workshop-spring-vault/tmp/kubeconfig.yaml
+
+# Configure kubernetes auth
+kubectl get secret -n vault vault-k8s-auth-secret -o json | jq -r '.data."ca.crt"' | base64 -d > tmp/k8s.crt
+kubectl get secret -n vault vault-k8s-auth-secret -o json | jq -r '.data.token' | base64 -d > tmp/k8s.token
+
+vault write auth/kubernetes/config \
+  token_reviewer_jwt="$(cat tmp/k8s.token)" \
+  kubernetes_host="https://10.5.0.4:6443" \
+  kubernetes_ca_cert=@tmp/k8s.crt

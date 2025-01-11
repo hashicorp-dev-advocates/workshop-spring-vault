@@ -45,7 +45,7 @@ Configure Kubernetes service account
 Your application needs a service account that matches the role you created in Vault
 (`payments`).
 
-Open `k8s/app.yaml` and verify that it includes a `ServiceAccount` named
+Open `k8s/app.yaml` in the **Code** tab. Verify that it includes a `ServiceAccount` named
 `payments`.
 
 ```yaml,nocopy
@@ -60,7 +60,7 @@ Define application properties
 
 You need to override your default application properties you used to test locally.
 
-Open `k8s/app.yaml` and verify that it includes a `ConfigMap` named
+Open `k8s/app.yaml` in the **Code** tab. Verify that it includes a `ConfigMap` named
 `payments-config`.
 
 Note that it defines the exact IP address of the Vault server, as
@@ -79,8 +79,8 @@ data:
 
     spring.cloud.vault.uri=http://10.5.0.2:8200
     spring.cloud.vault.fail-fast=true
-    spring.cloud.vault.authentication: KUBERNETES
-    spring.cloud.vault.kubernetes.role: payments
+    spring.cloud.vault.authentication=KUBERNETES
+    spring.cloud.vault.kubernetes.role=payments
 
     custom.transit.path=transit
     custom.transit.key=payments
@@ -111,7 +111,7 @@ Review the deployment
 
 Make sure your application uses the service account that matches the Vault role.
 
-Open `k8s/app.yaml` and verify that it includes a `Deployment` named
+Open `k8s/app.yaml` in the **Code** tab. Verify that it includes a `Deployment` named
 `payments`. It uses the `serviceAccountName` named `payments`, which matches
 the Vault role and Kubernetes service account.
 
@@ -149,17 +149,33 @@ spec:
 Deploy the application
 ===
 
-Apply the Kubernetes manifests for the application.
+Apply the Kubernetes manifests for the application using the **Terminal** tab.
 
 ```shell
 kubectl apply -f k8s/app.yaml
 ```
 
-Check that the application starts using `kubectl get pods`.
-You should have a pod prefixed by `payments`.
+Check that the application starts using the **Terminal** tab.
+
+```shell
+kubectl get pods -l app=payments
+```
+
+After a minute or two, the pod should be running.
+
+```shell,nocopy
+NAME                        READY   STATUS    RESTARTS   AGE
+payments-6468f7c94b-p6zg9   1/1     Running   0          43s
+```
 
 Test the application
 ===
+
+Follow the application logs in the **Terminal** tab.
+
+```shell
+kubectl logs -l app=payments -f
+```
 
 Make a request to the application to get the first payment card in the **API Request** tab.
 
@@ -175,12 +191,6 @@ The request returns the first payment card record.
 
 Verify rotation of secrets
 ===
-
-Follow the application logs in the **Terminal** tab.
-
-```shell
-kubectl logs -l app=payments -f
-```
 
 Wait about three minutes and make a second request to the API in the **API Request** tab.
 
@@ -209,10 +219,32 @@ It rotates the database credentials after a few minutes.
 2025-01-11T01:11:36.813Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
 ```
 
+Use CTRL-C to exit the application logs in the **Terminal** tab.
+
 Verify encrypted credit card number in database
 ===
 
-Get a database username and password from Vault to read from the database.
+Make a request to the application to create a new payment card record in the **API Request** tab.
+
+```shell
+curl localhost/paymentcard  -H "content-type: application/json" \
+  -d '{
+        "user_id": 789,
+        "name": "Mr Nicholas Jackson",
+        "number": "7890123456",
+        "expiry":"02/25",
+        "cv3": "8070"
+      }'
+```
+
+The request returns a new payment card record with the credit card number in plaintext.
+
+```shell,nocopy
+[{"id":3,"user_id":789,"name":"Mr Nicholas Jackson","number":"7890123456","expiry":"02/25","cv3":"8070"}]
+```
+
+Get a database username and password from Vault to read from the database
+in the **Terminal** tab.
 
 ```shell
 vault read database/creds/reader
@@ -237,16 +269,16 @@ table.
 PGPASSWORD=<copy from Vault output> psql -h 127.0.0.1 -U <copy from Vault output> payments --command 'select * from payment_card;'
 ```
 
-The command outputs two records. The first record has its credit card number in plaintext as you used it
-before you implemented Vault transit secrets engine. The second record that you just created
-has a ciphertext credit card number.
+The command outputs three records. You just added the third record by making a request
+to the Kubernetes application. It encrypted the credit card number before storing the data in the database.
 
 ```shell,nocopy
- id | user_id |        name         |                                                                                                                                                                                                                                                                                                                                                        number                                                                                                                                                                                                                                                                                                                                                         | expiry | cv3
+ id | user_id |        name         |                                                                                                                                                                                                                                                                                                                                                        number                                                                                                                                                                                                                                                                                                                                                         | expiry | cv3  
 ----+---------+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------
   1 |     123 | Mr Nicholas Jackson | 12313434                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 01/23  | 1231
-  2 |     456 | Mr Nicholas Jackson | vault:v1:LH5Gfh1Meh1S19hSvBNKnnCnH+M7q9yrNCYLpzaAbLNjJCOiZQQbjDnXHrKaiQh0vUNtTWr/fDfpyW5AOBZApN2gXUL+5Mv0+oCINGjoCnNaTSX5ONMRNcnZXAAwOXOV3K6EjHJcYw98Ym8JaktnYAMx/et5zzZhnWMnJt+C21XLAlVixFTpRUm2ViK+AxOuZyzrOZVYR1Czo+kIRzYF7H7BozwiCytlXbgSoyuY7C4pHTIrO4JPIzLN3gpTumlQZY9hTSF0UvgqLelgI2wnBHsn5BwDtg1uFTNTEud+egbhaZiBUJ0vo2h+tsoeXnPdFsvvBYeKVlr66ASq3LvdaUpxX9bOItHRpy8jQdnpM9DEKD/DRSNLVPjZBrnaR3jPcfKVN4D2+hdcncawl0yMV1v701d0r6eRBtP9opoakFA4dgxN85sw/Mb51kPTxZqwtI4VhvZGRs2hsZL0YEP+B/hhZR4Yw/LTHxixFhVahxXg+MifycNlgnE2wUMAg+mY+98wceUHgbsxewf7iBzfss7oZWuFN5apUdUZelp0aMYRZEttLhKAfbAlll8dba+B+gElGX2LE+p/QEjra9IIOUy4nC6iWd/GXUerib6gykSFzybQ4q/nHssGOOdsqqBdLPbVLoQqJNC4UewH1QXuPGYHlCwCmGOwogUIFKED7M0= | 01/26  | 9081
-(2 rows)
+  2 |     456 | Mr Nicholas Jackson | vault:v1:rR1zWbnDCWp+C87MLVQdeSsFSwTuo6Dc4JY3KQUfDXkUsRxn+pJObzqvlweXKUd06RFEeMl4sxK1lgfIx9bUyHMhDgqGLpZFmT8HoUkTr7D4RRLq9G+7T53w6x5dHvcnGcmoNZuioStchb+IE4JmWnwpN8N6bSf/dMjXudyQ+gNfwomoeSL609A53biFezu/kUPi8Kh1mlzpxu5CLZh/kunWi6pSR12CQsqsePKG/y+PrWplu8pCiCkJd1e/PW0mNNjnqonPaCILRoEvYzaj+JMbY4TGCblo3n5SDFXUYSJuxefy8keVedKXXXYpXk0dIBXlFXfbOMrY6MpSqV9HmAGXxOpaC60dtgztVSEcN4j0rKuQ3KRT1J3qcvLU8Dkm0MySJjRy6uYbgGwGVqcI2T+oaUuZS9ZE9rMPv8BUdLNyjk3Wl7APAhOHdIX/BzG91QOMgnvy1ExeDlWStpLobKmTIFZ4iVrPqdAdjX47gQJ4C07FYmgMcsoFbinpHIsg2VNWgJ+rmI1sNPfQ5XLiQgtwx9Q30jtYqXmWH2QZ3J0MOvfqMHIO70S0OsWIs0r2xkCTgdJwQsCQ0fwsMOtrRl/Y15/ez+/c+mKrkCurIULhDVILG1GYoaM7jGIctX+cCOy1h5YCpRfnIcuXb/b5mqW8NYnYH5qIlQKXdvC5j0Q= | 01/26  | 9081
+  3 |     789 | Mr Nicholas Jackson | vault:v1:Fdz+K2pcGtMZNurF6PD+FuX/DMtqsWlTGpPncdCykMB12l17ltsHyKrGulQyFnmIW/BevbbQ2JzTToXbwWj+hWV/i/D1fY53gTqMveGsieK3ZRV6K0eqeyaacvFAjoz8kfKKAawrWzTVGl0lo/iKSaBF/DNnEhEsHp9+98OkThNK8ZCPUPmlYntyCJt1xtdxn6ML/eJX+aQy4K6xLeAk9cMTXehEZXEyN8o8mdAHU4rzM81C7S+4+QC5r/hNI6/AZXqXyCG9BKYhC2vu69gga3NzuxzkRclTLH5XbRnRVcAW7WeX4LktOXxCgFTHHpGMuRJlTOU4wzSgVRGIKIb0PpTppXSB75d4QODXZlGtQYsfd44u6khg2RT+n/NP5Ri6XN28MV4aQZshdVH0v/iWt7DFZEPuuU5F8EM9YhOEAuwsazrw72qnyQ+TphGUj5iiziIDlv9Xd4mKwWAtNXs0Y7/bgspRXD+G4v9WRpv+RhlOWI1WXhJ5ayKj9gfZg520E6tEiDJViWMbp6PFEXf8jAdlzSdowurCW2ejLGNS2q0frDpVDvv6aaexhcSrP5TC7IRkPE3PF2absdX4Ca9eCTUQ2CLNDF1jgf+sBOAZDvTIvhAi4KMJ/daJLy5qR+nyXu9m19kU0A5G9Vpuoa/s8+7it6WQTOeuodbZstqnx1Q= | 02/25  | 8070
+(3 rows)
 ```
 
 Summary
