@@ -72,7 +72,7 @@ spec:
       serviceAccountName: payments
       automountServiceAccountToken: true
       containers:
-        - image: ghcr.io/hashicorp-dev-advocates/workshop-spring-vault:sha256-e0c2013ffcecb4f645179f7471b5551b9a17a9e54b4a86bffbc716c45218e2c3
+        - image: ghcr.io/hashicorp-dev-advocates/workshop-spring-vault:stable
           name: payments
           volumeMounts:
             - name: config-volume

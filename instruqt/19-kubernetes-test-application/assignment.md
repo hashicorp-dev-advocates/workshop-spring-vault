@@ -134,7 +134,7 @@ spec:
       serviceAccountName: payments
       automountServiceAccountToken: true
       containers:
-        - image: ghcr.io/hashicorp-dev-advocates/workshop-spring-vault:sha256-e0c2013ffcecb4f645179f7471b5551b9a17a9e54b4a86bffbc716c45218e2c3
+        - image: ghcr.io/hashicorp-dev-advocates/workshop-spring-vault:stable
           name: payments
           volumeMounts:
             - name: config-volume
@@ -175,16 +175,37 @@ The request returns the first payment card record.
 Verify rotation of secrets
 ===
 
-Examine the application logs in the **Terminal** tab.
+Follow the application logs in the **Terminal** tab.
 
 ```shell
-kubectl logs -l app=payments
+kubectl logs -l app=payments -f
+```
+
+Wait about three minutes and make a second request to the API in the **API Request** tab.
+
+```shell
+curl localhost/paymentcard/1
 ```
 
 The application retrieves a static secret and the database username and password from Vault.
 It rotates the database credentials after a few minutes.
 
 ```shell,nocopy
+2025-01-11T01:09:17.485Z  INFO 1 --- [workshop-spring-vault] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-11T01:09:17.496Z  INFO 1 --- [workshop-spring-vault] [           main] opSpringVaultApplication$$SpringCGLIB$$0 : rebuild database secrets: v-kubernet-writer-OKLunExkzEFDwllLE0vX-1736557753,yx-aRt4iXufAs8bgiPTD
+2025-01-11T01:09:17.512Z  INFO 1 --- [workshop-spring-vault] [           main] opSpringVaultApplication$$SpringCGLIB$$0 : rebuild client using static secrets: nic,Sec0ndVersion
+## omitted
+2025-01-11T01:10:18.048Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-11T01:10:18.273Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4b3e9076
+2025-01-11T01:10:18.274Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+## omitted
+2025-01-11T01:10:54.136Z  INFO 1 --- [workshop-spring-vault] [g-Cloud-Vault-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-11T01:10:54.143Z  INFO 1 --- [workshop-spring-vault] [g-Cloud-Vault-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-11T01:10:54.144Z  INFO 1 --- [workshop-spring-vault] [g-Cloud-Vault-2] c.e.w.VaultRefresher                     : application refreshes database credentials
+2025-01-11T01:11:36.773Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-5] opSpringVaultApplication$$SpringCGLIB$$0 : rebuild database secrets: v-kubernet-writer-0DXviIffojedsKMmQRLM-1736557854,6V-vDEZjXKN2vNVTGKY9
+2025-01-11T01:11:36.780Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-01-11T01:11:36.812Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-5] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@430d4690
+2025-01-11T01:11:36.813Z  INFO 1 --- [workshop-spring-vault] [nio-8080-exec-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
 ```
 
 Verify encrypted credit card number in database
