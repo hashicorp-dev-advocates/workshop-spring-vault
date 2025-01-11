@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euxo pipefail
+
+kubectl delete -f k8s/app.yaml

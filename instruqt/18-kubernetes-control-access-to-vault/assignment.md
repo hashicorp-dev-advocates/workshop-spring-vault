@@ -9,16 +9,16 @@ notes:
     Vault uses a set of policies to define API access to various secrets engines and paths. You can attach
     the policy to a role, which then gets assigned to an identity.
 tabs:
-  - id: avmy0ctjsd3v
-    title: Terminal
-    type: terminal
-    hostname: sandbox
-    workdir: /root/workshop-spring-vault
-  - id: 1ncd8zyxna92
-    title: Code
-    type: code
-    hostname: sandbox
-    path: /root/workshop-spring-vault
+- id: avmy0ctjsd3v
+  title: Terminal
+  type: terminal
+  hostname: sandbox
+  workdir: /root/workshop-spring-vault
+- id: 1ncd8zyxna92
+  title: Code
+  type: code
+  hostname: sandbox
+  path: /root/workshop-spring-vault
 difficulty: ""
 enhanced_loading: null
 ---
