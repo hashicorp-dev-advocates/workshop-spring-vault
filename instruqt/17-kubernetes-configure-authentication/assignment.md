@@ -1,8 +1,9 @@
 ---
 slug: kubernetes-configure-authentication
+id: dyucy5sianby
 type: challenge
-title: kubernetes-configure-authentication
-teaser: A short description of the challenge.
+title: Kubernetes - Enable Kubernetes authentication
+teaser: Enable Vault's Kubernetes authentication method.
 notes:
 - type: text
   contents: |
@@ -25,12 +26,12 @@ notes:
     1. User authentication - Once Vault verifies your identity, it provides a token for future requests.
     1. Machine authentication - Once Vault verifies a service or machine identity, it provides a token for future requests.
 tabs:
-- id: avmy0ctjsd3v
+- id: hcih5y4y8ved
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: 1ncd8zyxna92
+- id: 9zabmr5xdukh
   title: Code
   type: code
   hostname: sandbox
@@ -52,6 +53,9 @@ paths. Roles define what policies are associated with an authentication endpoint
 
 Vault provides the concept of authentication endpoints.  These are endpoints that can be used to authenticate
 to Vault using a known secret such as a Kubernetes service account token, a GitHub token, or JSON Web Token.
+
+Verify Kubernetes authentication method
+===
 
 Verify the authentication method for Kubernetes has already been configured for your
 cluster.

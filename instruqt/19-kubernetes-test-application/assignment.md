@@ -1,31 +1,32 @@
 ---
 slug: kubernetes-test-application
+id: rtfe9ynulx6t
 type: challenge
 title: Kubernetes - Test application
 teaser: Run the application in Kubernetes that uses secrets from Vault.
 notes:
-  - type: text
-    contents: |-
-      For other patterns regarding accessing Vault from Kubernetes, check out:
+- type: text
+  contents: |-
+    For other patterns regarding accessing Vault from Kubernetes, check out:
 
-      - [Vault agent](https://developer.hashicorp.com/vault/tutorials/kubernetes/agent-kubernetes)
-      - [Vault Secrets Operator](https://developer.hashicorp.com/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-vso-hcp-vault)
+    - [Vault agent](https://developer.hashicorp.com/vault/tutorials/kubernetes/agent-kubernetes)
+    - [Vault Secrets Operator](https://developer.hashicorp.com/vault/tutorials/integrate-kubernetes-hcp-vault-dedicated/kubernetes-vso-hcp-vault)
 tabs:
-  - id: vewwfodxkmai
-    title: Terminal
-    type: terminal
-    hostname: sandbox
-    workdir: /root/workshop-spring-vault
-  - id: ajxeiws4w8rd
-    title: API Request
-    type: terminal
-    hostname: sandbox
-    workdir: /root
-  - id: 01ddg0sifytr
-    title: Code
-    type: code
-    hostname: sandbox
-    path: /root/workshop-spring-vault
+- id: eif5s1szrkkf
+  title: Terminal
+  type: terminal
+  hostname: sandbox
+  workdir: /root/workshop-spring-vault
+- id: moixp5bairqj
+  title: API Request
+  type: terminal
+  hostname: sandbox
+  workdir: /root
+- id: focxw1mjwrgf
+  title: Code
+  type: code
+  hostname: sandbox
+  path: /root/workshop-spring-vault
 difficulty: ""
 enhanced_loading: null
 ---
@@ -73,31 +74,31 @@ apiVersion: v1
 data:
   application.properties: |
     spring.application.name=workshop-spring-vault
-    
+
     spring.main.allow-bean-definition-overriding=true
-    
+
     spring.cloud.vault.uri=http://10.5.0.2:8200
     spring.cloud.vault.fail-fast=true
     spring.cloud.vault.authentication: KUBERNETES
     spring.cloud.vault.kubernetes.role: payments
-    
+
     custom.transit.path=transit
     custom.transit.key=payments
     custom.refresh-interval-ms=180000
-    
+
     spring.config.import=vault://
-    
+
     spring.cloud.vault.kv.enabled=true
     spring.cloud.vault.kv.backend=secret
     spring.cloud.vault.kv.application-name=workshop-spring-vault
-    
+
     spring.cloud.vault.database.enabled=true
     spring.cloud.vault.database.role=writer
     spring.cloud.vault.database.backend=database
-    
+
     spring.cloud.vault.config.lifecycle.min-renewal=30s
     spring.cloud.vault.config.lifecycle.expiry-threshold=10s
-    
+
     spring.datasource.url=jdbc:postgresql://10.5.0.3:5432/payments
 kind: ConfigMap
 metadata:

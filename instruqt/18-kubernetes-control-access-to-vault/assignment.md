@@ -1,7 +1,8 @@
 ---
 slug: kubernetes-control-access-to-vault
+id: 1ers2ploc2n6
 type: challenge
-title: Kubernetes - Control access to Vault
+title: Kubernetes - Configure Kubernetes workload access to Vault
 teaser: Configure Vault to allow application access from Kubernetes
 notes:
 - type: text
@@ -9,12 +10,12 @@ notes:
     Vault uses a set of policies to define API access to various secrets engines and paths. You can attach
     the policy to a role, which then gets assigned to an identity.
 tabs:
-- id: avmy0ctjsd3v
+- id: jwiyex1rrs9i
   title: Terminal
   type: terminal
   hostname: sandbox
   workdir: /root/workshop-spring-vault
-- id: 1ncd8zyxna92
+- id: 5iczic5c0zyy
   title: Code
   type: code
   hostname: sandbox
@@ -86,10 +87,10 @@ vault policy read payments
 ```
 </details>
 
-Link policy to role
+Link policy to Vault role
 ===
 
-Create a Vault role that associates the policy with a Kubernetes service account. 
+Create a Vault role that associates the policy with a Kubernetes service account.
 Use the Vault CLI to add a role named `payments` that associates the `payments` policy with the
 `payments` service account in the `default` namespace.
 
