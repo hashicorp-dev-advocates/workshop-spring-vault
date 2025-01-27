@@ -102,6 +102,10 @@ curl localhost:8080/secret
 
 The request returns the value of the username and new password.
 
+> [!NOTE]
+> If you do not get the new username and password, wait a few more minutes before making another request.
+
+
 ```shell,nocopy
 {"username":"nic","password":"Sec0ndVersion"}
 ```

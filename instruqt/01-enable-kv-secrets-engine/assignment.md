@@ -8,7 +8,7 @@ notes:
 - type: text
   contents: |
     In this section of the workshop, you will learn how to use [Spring Vault](https://spring.io/projects/spring-vault) and [Spring Cloud Vault](https://cloud.spring.io/spring-cloud-vault/reference/html/)
-    libraries in your Spring Boot application to retrieve static secrets you store in HashiCorp Vault.
+    libraries in your Spring Boot application to retrieve static secrets from HashiCorp Vault.
 
     In this first section, you will:
 
@@ -54,12 +54,14 @@ storing a secret in Vault for an application to use.
 Enable the key-value secrets engine
 ===
 
-Enable the key-value secrets engine at the path `secret` in Vault. You must mount secrets engines before you can add secrets.
+Enable the key-value version 2 secrets engine at the path `secret` in Vault.
+You must mount secrets engines before you can add secrets.
 
 You can find the details in this documentation: https://developer.hashicorp.com/vault/docs/secrets/kv/kv-v2/setup.
 
 > [!NOTE]
 > You need to enable the engine at the path `secret`. This requires defining the path.
+> You also need to use key-value version 2, which supports versioning and other features for secrets management.
 
 <details>
 <summary><b>Solution</b></summary>
