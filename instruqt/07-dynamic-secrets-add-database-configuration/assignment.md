@@ -48,6 +48,10 @@ The connection URL expects a root database `username` and `password` as template
 leaking the root database username and password, pass the root database username and password
 as parameters.
 
+> [!NOTE]
+> It is highly recommended a user within the database is created specifically for Vault to use.
+> For simplicity of the exercise, we will use the default postgres administrator.
+
 Configure the database connection
 ===
 

@@ -46,8 +46,7 @@ enhanced_loading: null
 Dynamic secrets expire after a certain period of time. Vault deletes the secret on
 your behalf. Many secrets engines support some kind of dynamic secret capability.
 
-The database engine generates dynamic secrets for a database (username and password) for
-a variety of databases.
+The database engine generates dynamic secrets (username and password) for a variety of databases (Postgres, MongoDB, etc).
 
 This guide will walk you through configuring the database secrets engine and
 generating dynamic credentials for a PostgreSQL database.
@@ -62,7 +61,7 @@ You must mount secrets engines before Vault can issue secrets on your behalf.
 You can find the details in this documentation: https://developer.hashicorp.com/vault/docs/secrets/databases.
 
 > [!NOTE]
-> You need to enable the engine at the path `database`. This requires defining the path.
+> You need to enable the engine at the path `database`.
 
 <details>
 <summary><b>Solution</b></summary>

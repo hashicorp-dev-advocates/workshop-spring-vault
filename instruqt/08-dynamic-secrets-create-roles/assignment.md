@@ -86,23 +86,6 @@ password           H-K3EPsHkXX0TAw1tHB2
 username           v-token-writer-SKafQcVrz91Lu3BDxeGi-1736435705
 ```
 
-Copy the database username and password to log into Vault and select from the `payment_card`
-table.
-
-```shell
-PGPASSWORD=<copy from Vault output> psql -h 127.0.0.1 -U <copy from Vault output> payments --command 'select * from payment_card;'
-```
-
-There should be one record.
-
-```shell
- id | user_id |        name         |  number  | expiry | cv3
-----+---------+---------------------+----------+--------+------
-  1 |     123 | Mr Nicholas Jackson | 12313434 | 01/23  | 1231
-(1 row)
-```
-</details>
-
 Create a Vault role to read from the database
 ===
 
