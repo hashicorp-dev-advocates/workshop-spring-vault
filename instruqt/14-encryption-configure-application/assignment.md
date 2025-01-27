@@ -47,18 +47,9 @@ Vault supports two types of authentication methods:
 1. Human user authentication - you log into Vault and get a token for subsequent requests
 2. Machine authentication - a service or machine logs into Vault and gets a token for subsequent requests
 
-You will test the application **locally** in this section of the workshop.
-To run the application locally, you need to log into Vault and get a token.
-
-Use the username `dev` and password `password` to log into Vault and store the Vault token
-in the `VAULT_TOKEN` environment variable. This is a pre-defined environment variable
-that the Vault CLI uses to authenticate.
-
-Run the command in the **Terminal** tab.
-
-```shell
-export VAULT_TOKEN=$(vault login -method userpass -token-only username=dev password=password)
-```
+You will test the application **locally** in this first section of the workshop.
+For local testing only, get a token from VAult and pass it as an environment
+variable to application properties.
 
 Open `src/main/resources/application.properties` in the **Code** tab.
 

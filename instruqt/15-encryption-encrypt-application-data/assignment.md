@@ -199,7 +199,7 @@ Add the <code>vaultTransit.encrypt</code> method to the <code>createPayment</cod
                         + "RETURNING id",
                 request.userId(),
                 request.name(),
-                vaultTransit.encrypt(request.number()),
+                vaultTransit.encrypt(request.number()), // update this line to encrypt payload
                 request.expiry(),
                 request.cv3());
         var id = this.db.sql(statement).query((rs, rowNum) -> valueOf(
