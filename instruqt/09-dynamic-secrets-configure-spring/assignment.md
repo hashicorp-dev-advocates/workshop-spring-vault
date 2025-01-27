@@ -48,7 +48,7 @@ Configure local authentication to Vault
 ===
 
 You will test the application **locally** in this first section of the workshop.
-For local testing only, get a token from VAult and pass it as an environment
+For local testing only, get a token from Vault and pass it as an environment
 variable to application properties.
 
 Open `src/main/resources/application.properties` in the **Code** tab.
