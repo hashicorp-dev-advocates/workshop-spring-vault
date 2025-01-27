@@ -61,7 +61,7 @@ Verify the authentication method for Kubernetes has already been configured for 
 cluster.
 
 ```shell
- vault read auth/kubernetes/config
+vault read auth/kubernetes/config
 ```
 
 The output includes information about authenticating to the Kubernetes cluster, including certificate, host, and more.
