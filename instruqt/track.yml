@@ -8,6 +8,8 @@ tags: []
 owner: hashicorp-field-ops
 developers:
 - rosemary@hashicorp.com
+- rbarnes@hashicorp.com
+- michael.kosir@hashicorp.com
 idle_timeout: 1800
 timelimit: 10800
 lab_config:
@@ -16,5 +18,5 @@ lab_config:
   feedback_tab_enabled: false
   loadingMessages: true
   hideStopButton: false
-checksum: "8564366815570780055"
+checksum: "13587744764279415295"
 enhanced_loading: false
