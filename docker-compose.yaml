@@ -1,11 +1,13 @@
 services:
 
   vault:
-    image: hashicorp/vault:1.18.3
+    image: hashicorp/vault:2.0
     restart: always
     command: [ 'vault', 'server', '-dev', '-dev-listen-address=0.0.0.0:8200']
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: "root-token"
+      SKIP_SETCAP: "true"
+      SKIP_CHOWN: "true"
     ports:
       - "8200:8200"
     cap_add:

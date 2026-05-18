@@ -57,36 +57,36 @@ vault write auth/kubernetes/role/payments \
   token_policies=payments
   ttl=24h
 
-# To test Spring Vault locally
-export VAULT_TOKEN=$(vault login -method userpass -token-only username=dev password=password)
+# # To test Spring Vault locally
+# export VAULT_TOKEN=$(vault login -method userpass -token-only username=dev password=password)
 
-./mvnw spring-boot:run
+# ./mvnw spring-boot:run
 
-curl 127.0.0.1:8080/secret
+# curl 127.0.0.1:8080/secret
 
-curl 127.0.0.1:8080/paymentcard/1
+# curl 127.0.0.1:8080/paymentcard/1
 
-curl 127.0.0.1:8080/paymentcard  -H "content-type: application/json" \
-  -d '{
-        "user_id": 456,
-        "name": "Mr Nicholas Jackson",
-        "number": "456789012345",
-        "expiry":"01/26",
-        "cv3": "9081"
-      }'
+# curl 127.0.0.1:8080/paymentcard  -H "content-type: application/json" \
+#   -d '{
+#         "user_id": 456,
+#         "name": "Mr Nicholas Jackson",
+#         "number": "456789012345",
+#         "expiry":"01/26",
+#         "cv3": "9081"
+#       }'
 
-# To test Kubernetes
-kubectl apply -f k8s/app.yaml
+# # To test Kubernetes
+# kubectl apply -f k8s/app.yaml
 
-curl 127.0.0.1/secret
+# curl 127.0.0.1/secret
 
-curl 127.0.0.1/paymentcard/1
+# curl 127.0.0.1/paymentcard/1
 
-curl 127.0.0.1/paymentcard  -H "content-type: application/json" \
-  -d '{
-        "user_id": 456,
-        "name": "Mr Nicholas Jackson",
-        "number": "456789012345",
-        "expiry":"01/26",
-        "cv3": "9081"
-      }'
+# curl 127.0.0.1/paymentcard  -H "content-type: application/json" \
+#   -d '{
+#         "user_id": 456,
+#         "name": "Mr Nicholas Jackson",
+#         "number": "456789012345",
+#         "expiry":"01/26",
+#         "cv3": "9081"
+#       }'
