@@ -4,19 +4,20 @@ title: Using Vault in Spring Boot Applications
 teaser: Learn how to use Vault in your Spring Boot application
 description: ""
 icon: ""
-tags: []
+tags:
+- vault
+- java
+- hc-product:vault
 owner: hashicorp-field-ops
 developers:
-- rosemary@hashicorp.com
-- rbarnes@hashicorp.com
-- michael.kosir@hashicorp.com
 idle_timeout: 1800
-timelimit: 10800
+timelimit: 14400
 lab_config:
   sidebar_enabled: true
   feedback_recap_enabled: false
   feedback_tab_enabled: false
   loadingMessages: true
+  override_challenge_layout: false
   hideStopButton: false
-checksum: "4237551264714956167"
+checksum: "14893073102572267711"
 enhanced_loading: false

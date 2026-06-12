@@ -51,23 +51,17 @@ path "sys/auth"
   capabilities = ["read"]
 }
 
-# Enable and manage the transit secrets engine at `transit/` path
-
 # List, create, update, and delete transit secrets
 path "transit/*"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
 
-# Enable and manage the key/value secrets engine at `secret/` path
-
 # List, create, update, and delete key/value secrets
 path "secret/*"
 {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
-
-# Enable and manage the database secrets engine at `database/` path
 
 # List, create, update, and delete database secrets
 path "database/*"

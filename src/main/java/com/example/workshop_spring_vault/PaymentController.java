@@ -28,7 +28,7 @@ class PaymentController {
     private SequencedCollection<Payment> getPaymentById(JdbcClient db, String id) {
         return db
                 .sql(String.format("SELECT * FROM payment_card WHERE id = '%s'", id))
-                .query((rs, rowNum) -> new Payment(
+                .query((rs, _) -> new Payment(
                         rs.getLong("id"),
                         rs.getLong("user_id"),
                         rs.getString("name"),
@@ -58,10 +58,10 @@ class PaymentController {
                 request.number(),
                 request.expiry(),
                 request.cv3());
-        var id = this.db.sql(statement).query((rs, rowNum) -> valueOf(
+        var id = this.db.sql(statement).query((rs, _) -> valueOf(
                 rs.getLong("id")
         )).list();
 
-        return getPaymentById(this.db, id.get(0).toString());
+        return getPaymentById(this.db, id.getFirst().toString());
     }
 }

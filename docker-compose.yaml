@@ -1,15 +1,14 @@
 services:
 
   vault:
-    image: hashicorp/vault:2.0
+    image: hashicorp/vault:1.21.4
     restart: always
-    command: [ 'vault', 'server', '-dev', '-dev-listen-address=0.0.0.0:8200']
+    command: [ 'vault', 'server', '-dev']
     environment:
       VAULT_DEV_ROOT_TOKEN_ID: "root-token"
-      SKIP_SETCAP: "true"
-      SKIP_CHOWN: "true"
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
     ports:
-      - "8200:8200"
+      - "127.0.0.1:8200:8200"
     cap_add:
       - IPC_LOCK
     networks:
@@ -23,7 +22,7 @@ services:
       vpcbr:
         ipv4_address: 10.5.0.3
     ports:
-      - 5432:5432
+      - "127.0.0.1:5432:5432"
     environment:
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "payments"

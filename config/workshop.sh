@@ -66,14 +66,14 @@ vault write auth/kubernetes/role/payments \
 
 # curl 127.0.0.1:8080/paymentcard/1
 
-# curl 127.0.0.1:8080/paymentcard  -H "content-type: application/json" \
-#   -d '{
-#         "user_id": 456,
-#         "name": "Mr Nicholas Jackson",
-#         "number": "456789012345",
-#         "expiry":"01/26",
-#         "cv3": "9081"
-#       }'
+curl 127.0.0.1:8080/paymentcard  -H "content-type: application/json" \
+  -d '{
+        "user_id": 456,
+        "name": "Mr Nicholas Jackson",
+        "number": "456789012345",
+        "expiry":"01/26",
+        "cv3": "9081"
+      }'
 
 # # To test Kubernetes
 # kubectl apply -f k8s/app.yaml

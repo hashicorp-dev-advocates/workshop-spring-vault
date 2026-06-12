@@ -9,7 +9,7 @@ if [ ! -f ./tmp/k3s.token ]; then
 fi
 
 export KUBECONFIG=./tmp/kubeconfig.yaml
-export VAULT_ADDR=http://127.0.0.1:8200
+export VAULT_ADDR=http://localhost:8200
 export VAULT_TOKEN=root-token
 
 K3S_TOKEN=$(cat ./tmp/k3s.token) podman compose -f docker-compose.yaml up -d --build

@@ -11,7 +11,7 @@ done
 sudo systemctl stop unattended-upgrades
 
 sudo apt update
-sudo apt install -y jq postgresql-client
+sudo apt install -y jq postgresql-client unzip
 
 # install kubectl
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -19,21 +19,22 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 # install vault
-wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update
-sudo apt install -y vault
+curl -LO https://releases.hashicorp.com/vault/1.21.4/vault_1.21.4_linux_amd64.zip
+unzip vault_1.21.4_linux_amd64.zip
+chmod +x ./vault
+sudo mv ./vault /usr/local/bin/vault
 
 # install java
-wget https://download.oracle.com/java/23/latest/jdk-23_linux-x64_bin.deb
-sudo apt install ./jdk-23_linux-x64_bin.deb
+wget -q https://download.oracle.com/java/23/archive/jdk-23.0.2_linux-x64_bin.deb
+sudo apt install ./jdk-23.0.2_linux-x64_bin.deb
 
 # install maven
-wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
-tar -xvf apache-maven-3.9.9-bin.tar.gz
-sudo mv apache-maven-3.9.9 /opt
-export PATH=/opt/apache-maven-3.9.9/bin:$PATH
-echo -e "\nPATH=\"/opt/apache-maven-3.9.9/bin:\$PATH\"" >> ~/.profile
+wget -q https://dlcdn.apache.org/maven/maven-3/3.9.15/binaries/apache-maven-3.9.15-bin.tar.gz
+tar -xvf apache-maven-3.9.15-bin.tar.gz
+sudo mv apache-maven-3.9.15 /opt
+export PATH=/opt/apache-maven-3.9.15/bin:$PATH
+echo -e "\nPATH=\"/opt/apache-maven-3.9.15/bin:\$PATH\"" >> ~/.profile
 
 mvn -N wrapper:wrapper
-rm -f apache-maven-3.9.9-bin.tar.gz jdk-23_linux-x64_bin.deb mvnw mvnw.cmd
+
+rm -f vault_1.21.4_linux_amd64.zip apache-maven-3.9.15-bin.tar.gz jdk-23.0.2_linux-x64_bin.deb mvnw mvnw.cmd
