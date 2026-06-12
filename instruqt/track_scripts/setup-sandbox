@@ -2,6 +2,10 @@
 
 set -euxo pipefail
 
+VAULT_VERSION=1.21.4
+JDK_VERSION=23.0.2
+MAVEN_VERSION=3.9.16
+
 # Wait for the Instruqt host bootstrap to finish
 until [ -f /opt/instruqt/bootstrap/host-bootstrap-completed ]
 do
@@ -19,22 +23,22 @@ chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 # install vault
-curl -LO https://releases.hashicorp.com/vault/1.21.4/vault_1.21.4_linux_amd64.zip
-unzip vault_1.21.4_linux_amd64.zip
+curl -LO https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
+unzip vault_${VAULT_VERSION}_linux_amd64.zip
 chmod +x ./vault
 sudo mv ./vault /usr/local/bin/vault
 
 # install java
-wget -q https://download.oracle.com/java/23/archive/jdk-23.0.2_linux-x64_bin.deb
-sudo apt install ./jdk-23.0.2_linux-x64_bin.deb
+wget -q https://download.oracle.com/java/23/archive/jdk-${JDK_VERSION}_linux-x64_bin.deb
+sudo apt install ./jdk-${JDK_VERSION}_linux-x64_bin.deb
 
 # install maven
-wget -q https://dlcdn.apache.org/maven/maven-3/3.9.15/binaries/apache-maven-3.9.15-bin.tar.gz
-tar -xvf apache-maven-3.9.15-bin.tar.gz
-sudo mv apache-maven-3.9.15 /opt
-export PATH=/opt/apache-maven-3.9.15/bin:$PATH
-echo -e "\nPATH=\"/opt/apache-maven-3.9.15/bin:\$PATH\"" >> ~/.profile
+wget -q https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+tar -xvf apache-maven-${MAVEN_VERSION}-bin.tar.gz
+sudo mv apache-maven-${MAVEN_VERSION} /opt
+export PATH=/opt/apache-maven-${MAVEN_VERSION}/bin:$PATH
+echo -e "\nPATH=\"/opt/apache-maven-${MAVEN_VERSION}/bin:\$PATH\"" >> ~/.profile
 
 mvn -N wrapper:wrapper
 
-rm -f vault_1.21.4_linux_amd64.zip apache-maven-3.9.15-bin.tar.gz jdk-23.0.2_linux-x64_bin.deb mvnw mvnw.cmd
+rm -f vault_${VAULT_VERSION}_linux_amd64.zip apache-maven-${MAVEN_VERSION}-bin.tar.gz jdk-${JDK_VERSION}_linux-x64_bin.deb mvnw mvnw.cmd

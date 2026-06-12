@@ -7,7 +7,7 @@ teaser: Run the application that uses dynamic secrets from Vault.
 notes:
 - type: text
   contents: |-
-    For more resources on using Spring Vault to read static secrets from Vault, check out:
+    For more resources on using Spring Vault to read dynamic secrets from Vault, check out:
 
     - [Tutorial](https://developer.hashicorp.com/vault/tutorials/app-integration/spring-reload-secrets#reload-dynamic-secrets)
     - [Example Demo](https://www.youtube.com/watch?v=E9XDfOVNN2U)
